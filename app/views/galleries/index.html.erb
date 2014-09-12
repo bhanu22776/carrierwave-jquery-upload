@@ -1,0 +1,54 @@
+  <h1>Galleries</h1>
+    <div class="container" id="tourpackages-carousel">
+      
+      <div class="row">
+        <% @galleries.each do |gallery| %>
+        <div class="col-xs-18 col-sm-6 col-md-3">
+          <div class="thumbnail">
+            <% if gallery.cover.blank? %>
+              <a href="<%= gallery_path(:id => gallery.id) %>">
+                <img src="/assets/Coming_soon.png" alt="">
+              </a>
+            <% else %>
+              <a href="<%= gallery_path(:id => gallery.id) %>">
+                <%= image_tag gallery.cover.thumb.url %>
+              </a>
+            <% end %>
+            <div class="caption">
+              <h4><%= gallery.name.truncate(14) %></h4>
+              <p><%= gallery.description.truncate(20) %></p>
+
+              <p>
+              
+                <a href="<%= edit_gallery_path(:id => gallery.id) %>" class="btn btn-xs btn-info">
+                  <i class="icon-edit "></i>
+                  Edit
+                </a>
+                <a class="btn btn-xs btn-danger btn-delete" confirm="Вы уверены?" data-method="delete" href="<%= gallery_path(:id => gallery.id) %>" data-remote=true>
+                  <i class="icon-trash"></i>
+                  Delete
+                </a>
+              </p>
+            </div>
+          </div>
+        </div>
+        <% end %>
+      </div><!-- End row -->
+      
+    </div><!-- End container -->
+
+
+  <%= link_to 'New', new_gallery_path, :class => 'btn btn-sm btn-info' %>
+
+<style type="text/css">
+
+.thumbnail {
+    position: relative;
+    padding: 0px;
+    margin-bottom: 20px;
+}
+
+.thumbnail img {
+    width: 100%;
+}
+</style>
